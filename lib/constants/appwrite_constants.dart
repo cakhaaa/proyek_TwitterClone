@@ -1,5 +1,5 @@
 class AppwriteConstants {
-  static const String databaseId = '64342c170ccbcb45fc5b';
-  static const String projectId = '6433d66b582f2106c140';
+  static const String databaseId = '6432ee30a1f26d2ca801';
+  static const String projectId = '6432e08f2c18882582c4';
   static const String endPoint = 'http://localhost:80/v1';
 }
