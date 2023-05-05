@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:proyek/constants/constants.dart';
-
+import 'package:proyek/features/tweet/views/create_tweet_view.dart';
 import '../../../theme/pallete.dart';
 
 class HomeView extends StatefulWidget {
   static route() => MaterialPageRoute(
-    builder: (context) => const HomeView(),
-  );
+        builder: (context) => const HomeView(),
+       );
   const HomeView({super.key});
 
   @override
@@ -25,6 +24,10 @@ void onPageChange(int index) {
     _page = index;
   });
 }
+
+onCreateTweet() {
+  Navigator.push(context, CreateTweetScreen.route());
+}
   
   @override
   Widget build(BuildContext context) {
@@ -35,8 +38,12 @@ void onPageChange(int index) {
         children: UIConstants.bottomTabBarPages,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+        onPressed: onCreateTweet,
+        child: const Icon(
+          Icons.add,
+          color: Pallete.whiteColor,
+          size: 29,
+          ),
       ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
