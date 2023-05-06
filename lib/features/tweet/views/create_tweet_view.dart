@@ -75,9 +75,9 @@ void onPickImages() async {
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(currentUser.profilePic),
-                          radius: 40,
+                          radius: 30,
                         ),
-                        const SizedBox(width: 35),
+                        const SizedBox(width: 15),
                         Expanded(
                           child: TextField(
                             controller: tweetTextController,
