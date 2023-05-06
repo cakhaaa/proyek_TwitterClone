@@ -51,18 +51,6 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
             children: [
-             //See
-             const Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                "See What's Happening In The World Right Now",
-                style: TextStyle(
-                  color:Colors.white,
-                  fontSize:30,
-                ),
-              ),
-             ),
-             
               // textfield 1
               AuthField(
                 controller: emailController,  
