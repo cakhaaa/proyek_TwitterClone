@@ -46,7 +46,7 @@ class UserAPI implements IUserAPI {
     } on AppwriteException catch (e, st) {
       return left(
         Failure(
-          e.message ?? 'Some unexpected error occurred',
+          e.message ?? 'Waduh! Error bro',
           st,
         ),
       );
@@ -90,7 +90,7 @@ class UserAPI implements IUserAPI {
     } on AppwriteException catch (e, st) {
       return left(
         Failure(
-          e.message ?? 'Some unexpected error occurred',
+          e.message ?? 'Waduh! Error bro',
           st,
         ),
       );
@@ -121,7 +121,7 @@ class UserAPI implements IUserAPI {
     } on AppwriteException catch (e, st) {
       return left(
         Failure(
-          e.message ?? 'Some unexpected error occurred',
+          e.message ?? 'Waduh! Error bro',
           st,
         ),
       );
@@ -145,7 +145,7 @@ class UserAPI implements IUserAPI {
     } on AppwriteException catch (e, st) {
       return left(
         Failure(
-          e.message ?? 'Some unexpected error occurred',
+          e.message ?? 'Waduh! Error bro',
           st,
         ),
       );
