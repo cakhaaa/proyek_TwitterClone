@@ -13,9 +13,9 @@ import 'package:proyek/theme/pallete.dart';
 class CreateTweetScreen extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const CreateTweetScreen(),
-       );
+      );
   const CreateTweetScreen({super.key});
-  
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _CreateTweetScreenState();
@@ -33,22 +33,24 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
 
   void shareTweet() {
     ref.read(tweetControllerProvider.notifier).shareTweet(
-          images: images, 
-          text: tweetTextController.text, 
-          context: context
+          images: images,
+          text: tweetTextController.text,
+          context: context,
+          repliedTo: '',
         );
     Navigator.pop(context);
   }
 
-void onPickImages() async {
-  images = await  pickImages();
-  setState(() {});
-}
+  void onPickImages() async {
+    images = await pickImages();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    final currentUser = ref.watch(currentUserDetailsProvider).value;   
+    final currentUser = ref.watch(currentUserDetailsProvider).value;
     final isLoading = ref.watch(tweetControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -59,14 +61,14 @@ void onPickImages() async {
         ),
         actions: [
           RoundedSmallButton(
-            onTap: shareTweet, 
+            onTap: shareTweet,
             label: 'Tweet',
             backgroundColor: Pallete.blueColor,
             textColor: Pallete.whiteColor,
-            ),
+          ),
         ],
       ),
-      body:isLoading || currentUser == null 
+      body: isLoading || currentUser == null
           ? const Loader()
           : SafeArea(
               child: SingleChildScrollView(
@@ -86,11 +88,11 @@ void onPickImages() async {
                               fontSize: 22,
                             ),
                             decoration: const InputDecoration(
-                              hintText: "How is your day?",
+                              hintText: "What's happening?",
                               hintStyle: TextStyle(
                                 color: Pallete.greyColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
                               ),
                               border: InputBorder.none,
                             ),
@@ -99,69 +101,67 @@ void onPickImages() async {
                         ),
                       ],
                     ),
-                    if(images.isNotEmpty)
+                    if (images.isNotEmpty)
                       CarouselSlider(
-                      items: images
-                      .map(
-                        (file) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 5,
-                            ),
-                            child: Image.file(file),
-                          );
-                        },
+                        items: images.map(
+                          (file) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                              ),
+                              child: Image.file(file),
+                            );
+                          },
                         ).toList(),
                         options: CarouselOptions(
                           height: 400,
                           enableInfiniteScroll: false,
-                          ),
                         ),
+                      ),
                   ],
                 ),
-              ) 
-            ),
-            bottomNavigationBar: Container(
-              padding: const EdgeInsets.only(bottom: 10),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: Pallete.greyColor,
-                    width: 0.1,
-                  ),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0).copyWith(
-                      left: 15,
-                      right: 15,
-                    ),
-                    child: GestureDetector(
-                      onTap: onPickImages,
-                      child: SvgPicture.asset(AssetsConstants.galleryIcon)
-                      ),
-                  ),
-            
-                  Padding(
-                    padding: const EdgeInsets.all(8.0).copyWith(
-                      left: 15,
-                      right: 15,
-                    ),
-                    child: SvgPicture.asset(AssetsConstants.gifIcon),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0).copyWith(
-                      left: 15,
-                      right: 15,
-                    ),
-                    child: SvgPicture.asset(AssetsConstants.emojiIcon),
-                  ),
-                ],
               ),
             ),
-   );
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.only(bottom: 10),
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Pallete.greyColor,
+              width: 0.3,
+            ),
+          ),
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0).copyWith(
+                left: 15,
+                right: 15,
+              ),
+              child: GestureDetector(
+                onTap: onPickImages,
+                child: SvgPicture.asset(AssetsConstants.galleryIcon),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0).copyWith(
+                left: 15,
+                right: 15,
+              ),
+              child: SvgPicture.asset(AssetsConstants.gifIcon),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0).copyWith(
+                left: 15,
+                right: 15,
+              ),
+              child: SvgPicture.asset(AssetsConstants.emojiIcon),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
