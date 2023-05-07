@@ -3,9 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:proyek/common/common.dart';
 import 'package:proyek/constants/assets_constants.dart';
-import 'package:proyek/core/utils.dart';
 import 'package:proyek/features/auth/controller/auth_controller.dart';
 import 'package:proyek/features/tweet/controller/tweet_controller.dart';
 import 'package:proyek/theme/pallete.dart';
@@ -37,13 +37,18 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           text: tweetTextController.text,
           context: context,
           repliedTo: '',
+          repliedToUserId: '',
         );
     Navigator.pop(context);
   }
 
-  void onPickImages() async {
-    images = await pickImages();
-    setState(() {});
+  Future<void> onPickImages() async {
+    final picker = ImagePicker();
+    final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles != null) {
+      images = pickedFiles.map((file) => File(file.path)).toList();
+      setState(() {});
+    }
   }
 
   @override

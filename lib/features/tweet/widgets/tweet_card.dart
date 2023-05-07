@@ -11,6 +11,7 @@ import 'package:proyek/features/tweet/views/twitter_reply_view.dart';
 import 'package:proyek/features/tweet/widgets/carousel_image.dart';
 import 'package:proyek/features/tweet/widgets/hashtags_test.dart';
 import 'package:proyek/features/tweet/widgets/tweet_icon_button.dart';
+import 'package:proyek/features/user_profile/view/user_profile_view.dart';
 import 'package:proyek/models/tweet_model.dart';
 import 'package:proyek/theme/pallete.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -43,10 +44,16 @@ class TweetCard extends ConsumerWidget {
                     children: [
                       Container(
                         margin: const EdgeInsets.all(10),
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(user.profilePic),
-                              radius: 28,
-                ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, UserProfileView.route(user),
+                              );
+                            },
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(user.profilePic),
+                                radius: 28,
+                                          ),
+                          ),
               ),
               Expanded(
                 child: Column(
@@ -185,7 +192,9 @@ class TweetCard extends ConsumerWidget {
                               ref.
                                 read(tweetControllerProvider
                                     .notifier)
-                                .likeTweet(tweet, user);
+                                .likeTweet(
+                                  tweet, currentUser
+                                  );
                               return !isLiked; 
                             },
                             isLiked: 
