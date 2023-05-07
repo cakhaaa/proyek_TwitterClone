@@ -6,6 +6,7 @@ import 'package:like_button/like_button.dart';
 import 'package:proyek/constants/assets_constants.dart';
 import 'package:proyek/core/enums/tweet_type_enum.dart';
 import 'package:proyek/features/auth/controller/auth_controller.dart';
+import 'package:proyek/features/tweet/controller/tweet_controller.dart';
 import 'package:proyek/features/tweet/widgets/carousel_image.dart';
 import 'package:proyek/features/tweet/widgets/hashtags_test.dart';
 import 'package:proyek/features/tweet/widgets/tweet_icon_button.dart';
@@ -23,7 +24,9 @@ class TweetCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(userDetailsProvider(tweet.uid)).when(
+    final currentUser = ref.watch(currentUserDetailsProvider).value;
+
+    return currentUser == null ? const SizedBox() : ref.watch(userDetailsProvider(tweet.uid)).when(
           data: (user) {
             return Column(
       children: [
@@ -41,7 +44,25 @@ class TweetCard extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //code for retweeted
+                  if (tweet.retweetedBy.isNotEmpty)
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                           AssetsConstants.retweetIcon, 
+                           color: Pallete.greyColor, 
+                           height: 20,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        '${tweet.retweetedBy} retweeted',
+                        style: const TextStyle(
+                          color: Pallete.greyColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500
+                        ),
+                      )
+                    ],
+                  ),
                   Row(
                     children: [
                       Container(
@@ -104,10 +125,28 @@ class TweetCard extends ConsumerWidget {
                         TweetIconButton(
                           pathName: AssetsConstants.retweetIcon,
                           text: tweet.reshareCount.toString(), 
-                          onTap: () {},
+                          onTap: () {
+                            ref.
+                              read(tweetControllerProvider
+                                  .notifier)
+                              .reshareTweet(
+                                tweet, 
+                                currentUser, 
+                                context,
+                              ); 
+                          },
                         ),
                         LikeButton(
                           size: 25,
+                          onTap: (isLiked) async {
+                            ref.
+                              read(tweetControllerProvider
+                                  .notifier)
+                              .likeTweet(tweet, user);
+                            return !isLiked; 
+                          },
+                          isLiked: 
+                            tweet.likes.contains(currentUser.uid),
                           likeBuilder: (isLiked) {
                             return isLiked 
                             ? SvgPicture.asset(
@@ -119,11 +158,27 @@ class TweetCard extends ConsumerWidget {
                               color: Pallete.greyColor,
                               ); 
                           },
-                        ),
+                          likeCount: tweet.likes.length,
+                          countBuilder: (likecount, isLiked, text) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                text, 
+                                style: TextStyle(
+                                   color: isLiked
+                                     ? Pallete.redColor
+                                     : Pallete.whiteColor,
+                                      fontSize: 15,
+                              ),
+                             ),
+                            );
+                          },
+                         ),
+                        
                         IconButton(
                           onPressed: () {}, 
                           icon: const Icon(
-                            Icons.shape_line_outlined,
+                            Icons.share_outlined,
                             size: 25,
                             color: Pallete.greyColor,
                           ),
