@@ -75,6 +75,7 @@ class SideDrawer extends ConsumerWidget {
                 ),
               ),
               onTap: () {
+                ref.read(authControllerProvider.notifier).logout(context);
               },
             ),
           ],

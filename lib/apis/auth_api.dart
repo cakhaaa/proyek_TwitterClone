@@ -23,6 +23,7 @@ abstract class IAuthAPI {
     required String password,
   });
   Future<model.Account?> currentUserAccount();
+  FutureEitherVoid logout();
 }
 
 class AuthAPI implements IAuthAPI {
@@ -48,7 +49,7 @@ class AuthAPI implements IAuthAPI {
       final account = await _account.create(
         userId: ID.unique(), 
         email: email, 
-        password: password
+        password: password,
       );
       return right(account);
     } on AppwriteException catch (e, stackTrace){
@@ -70,7 +71,7 @@ class AuthAPI implements IAuthAPI {
    try {
       final session = await _account.createEmailSession( 
         email: email, 
-        password: password
+        password: password,
       );
       return right(session);
     } on AppwriteException catch (e, stackTrace){
@@ -83,5 +84,23 @@ class AuthAPI implements IAuthAPI {
        );
     }
   }
+  
+  @override
+  FutureEitherVoid logout() async { 
+    try {
+      await _account.deleteSession( 
+        sessionId: 'current',
+      );
+      return right(null);
+    } on AppwriteException catch (e, stackTrace){
+      return left (
+        Failure(e.message ?? 'Error yang tidak terduga', stackTrace),
+        );
+    } catch (e, stackTrace) {
+      return left(
+        Failure(e.toString(), stackTrace),
+       );
+    }
+   }
 }
 

@@ -93,10 +93,15 @@ class TweetCard extends ConsumerWidget {
                           ),
                         ),
                         if (user.isTwitterBlue)
-                        SvgPicture.asset(AssetsConstants.verifiedIcon,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0),
+                          child: SvgPicture.asset(
+                            AssetsConstants.verifiedIcon,
+                          ),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(right: 5),
+                          margin: const EdgeInsets.only(
+                            right: 5),
                           child: Text(
                             '@${user.name} . ${timeago.format(
                               tweet.tweetedAt,

@@ -5,6 +5,7 @@ import 'package:proyek/apis/auth_api.dart';
 import 'package:proyek/apis/user_api.dart';
 import 'package:proyek/core/utils.dart';
 import 'package:proyek/features/auth/view/login_view.dart';
+import 'package:proyek/features/auth/view/signup_view.dart';
 import 'package:proyek/features/home/view/home_view.dart';
 import 'package:proyek/models/user_model.dart';
 
@@ -102,5 +103,15 @@ class AuthController extends StateNotifier<bool> {
     final document = await _userAPI.getUserData(uid);
     final updatedUser = UserModel.fromMap(document.data);
     return updatedUser;
+  }
+  void logout(BuildContext context) async {
+    final res = await _authAPI.logout();
+    res.fold((l) => null, (r) {
+      Navigator.pushAndRemoveUntil(
+        context, 
+        LoginView.route(),
+        (route) => false,
+        );
+    });
   }
 }

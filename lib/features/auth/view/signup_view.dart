@@ -55,10 +55,10 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
              const Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                "See What's Happening In The World Right Now",
+                "Twitter Clone -by kelompok 2",
                 style: TextStyle(
                   color:Colors.white,
-                  fontSize:30,
+                  fontSize:25,
                 ),
               ),
              ),
