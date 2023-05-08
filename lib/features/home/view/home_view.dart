@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:proyek/constants/constants.dart';
+import 'package:proyek/features/home/widget/side_drawer.dart';
 import 'package:proyek/features/tweet/views/create_tweet_view.dart';
 import '../../../theme/pallete.dart';
 
@@ -45,6 +46,7 @@ onCreateTweet() {
           size: 29,
           ),
       ),
+      drawer: const SideDrawer(),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChange,

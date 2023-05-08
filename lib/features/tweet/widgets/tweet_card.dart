@@ -9,7 +9,7 @@ import 'package:proyek/features/auth/controller/auth_controller.dart';
 import 'package:proyek/features/tweet/controller/tweet_controller.dart';
 import 'package:proyek/features/tweet/views/twitter_reply_view.dart';
 import 'package:proyek/features/tweet/widgets/carousel_image.dart';
-import 'package:proyek/features/tweet/widgets/hashtags_test.dart';
+import 'package:proyek/features/tweet/widgets/hashtag_text.dart';
 import 'package:proyek/features/tweet/widgets/tweet_icon_button.dart';
 import 'package:proyek/features/user_profile/view/user_profile_view.dart';
 import 'package:proyek/models/tweet_model.dart';
@@ -81,7 +81,9 @@ class TweetCard extends ConsumerWidget {
                     Row(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(right: 5),
+                          margin:  EdgeInsets.only(
+                            right: user.isTwitterBlue ? 1 : 5,
+                            ),
                           child: Text(
                             user.name,
                             style: const TextStyle(
@@ -89,6 +91,9 @@ class TweetCard extends ConsumerWidget {
                               fontSize: 19, 
                             ),
                           ),
+                        ),
+                        if (user.isTwitterBlue)
+                        SvgPicture.asset(AssetsConstants.verifiedIcon,
                         ),
                         Container(
                           margin: const EdgeInsets.only(right: 5),
