@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:proyek/theme/pallete.dart';
-
 class HashtagText extends StatelessWidget {
   final String text;
   const HashtagText({
