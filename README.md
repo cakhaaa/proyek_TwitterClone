@@ -10,7 +10,7 @@ Gabriel Arnold Budianto (535210061)
 Lutfiana Sinta Lestari (535210065)
 Novita Sari Samosir (535210091)
 
-Proyek ini dibuat untuk memenuhi nilai Ujian Tengah Semester. Berisikan aplikasi menyerupai twitter dengan menggunakan Flutter dan Appwrite.
+Proyekkkkkk ini dibuat untuk memenuhi nilai Ujian Tengah Semester. Berisikan aplikasi menyerupai twitter dengan menggunakan Flutter dan Appwrite.
 
 ## Fitur
 
